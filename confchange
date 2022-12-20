@@ -1,9 +1,9 @@
 #! /bin/sh
 # Script to find new configuration files and open to compare with originals; designed for use in Void and Arch GNU/Linux distributions.
-# v:2.1 2022-07-17
+# v:2.2 2022-12-20
 
 scriptname='confchange'
-scriptver='2.1'
+scriptver='2.2'
 
 usage() {
 	cat <<EOF
@@ -72,11 +72,11 @@ esac
 for f in $confdiff; do
 	orig="${f%.*}"
 # Handle files appended with number containing 1-3 decimals ##FIXME more elegant solution required
-	if echo "$orig" | grep -E -q '*-[0-9].[0-9].[0-9]*'; then
+	if echo "$orig" | grep -E -q '.-[0-9]\.[0-9]\.[0-9].'; then
 		orig="${f%.*.*.*.*}"
-	elif echo "$orig" | grep -E -q '*-[0-9].[0-9]*'; then
+	elif echo "$orig" | grep -E -q '.-[0-9]\.[0-9].'; then
 		orig="${f%.*.*.*}"
-	elif echo "$orig" | grep -E -q '*-[0-9].*'; then
+	elif echo "$orig" | grep -E -q '.-[0-9].'; then
 		orig="${f%.*.*}"
 	fi	
 # sudoedit not used for *diff ; column display for *diff; -d option added to *vim
